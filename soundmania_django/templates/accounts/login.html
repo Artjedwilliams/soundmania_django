@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Log In | Sound Mania{% endblock %}
+{% block content %}
+<main class="auth-layout">
+    {% include "accounts/_brand_panel.html" %}
+    <section class="form-panel">
+        <div class="form-wrap login-wrap">
+            <h1>LOG IN YOUR ACCOUNT</h1>
+            <p class="subtitle">Enter your details below</p>
+
+            {% include "accounts/_messages.html" %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="field">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                    {% for error in form.email.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+                </div>
+                <div class="field">
+                    <label for="{{ form.password.id_for_label }}">Password</label>
+                    {{ form.password }}
+                    {% for error in form.password.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+                </div>
+                <div class="form-options">
+                    <label class="check-label"><input type="checkbox" name="remember_me"> <span>Remember me</span></label>
+                    <a href="{% url 'password_reset' %}" class="text-link">Forgot Password?</a>
+                </div>
+                <button class="brush-button" type="submit"><span>Log In</span></button>
+            </form>
+            <p class="switch-copy">Dont have an account? <a href="{% url 'register' %}">Sign up</a></p>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Welcome | Sound Mania{% endblock %}
+{% block content %}
+<main class="welcome-page">
+    <img src="/static/images/logo.png" alt="Sound Mania" class="welcome-logo">
+    <h1>Welcome to Sound Mania, {{ request.user.first_name|default:request.user.email }}!</h1>
+    <p>Your account is ready. Get ready to experience your favorite songs louder, clearer, and bolder.</p>
+    <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="brush-button"><span>Log Out</span></button></form>
+</main>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Create Account | Sound Mania{% endblock %}
+{% block content %}
+<main class="auth-layout">
+    {% include "accounts/_brand_panel.html" %}
+    <section class="form-panel">
+        <div class="form-wrap register-wrap">
+            <h1>CREATE YOUR ACCOUNT</h1>
+            <p class="subtitle">Enter your details below</p>
+
+            {% include "accounts/_messages.html" %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="name-row">
+                    <div class="field">
+                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        {{ form.first_name }}
+                        {% for error in form.first_name.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        {{ form.last_name }}
+                        {% for error in form.last_name.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="{{ form.email.id_for_label }}">Email address</label>
+                    {{ form.email }}
+                    {% for error in form.email.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+                </div>
+                <div class="field">
+                    <label for="{{ form.password1.id_for_label }}">Password</label>
+                    <input type="password" name="password1" id="id_password1" placeholder="Create a password" autocomplete="new-password" required>
+                    {% for error in form.password1.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+                </div>
+                <div class="field">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                    <input type="password" name="password2" id="id_password2" placeholder="Confirm your password" autocomplete="new-password" required>
+                    {% for error in form.password2.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+                </div>
+                {% if form.non_field_errors %}<div class="field-error form-errors">{{ form.non_field_errors }}</div>{% endif %}
+                <label class="terms-label">
+                    {{ form.agree_terms }}
+                    <span>I agree to Sound Mania’s <a href="#" class="inline-link">Terms of Service</a> and <a href="#" class="inline-link">Privacy Policy</a></span>
+                </label>
+                {% for error in form.agree_terms.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+                <button class="brush-button register-button" type="submit"><span>Create Account</span></button>
+            </form>
+            <p class="switch-copy">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </div>
+    </section>
+</main>
+{% endblock %}
